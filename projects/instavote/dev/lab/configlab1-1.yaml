@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: configmap-b
+  namespace: test
+data:
+  API: https://107.178.217.202
+  USER: admin

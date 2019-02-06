@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: workerdeployment
+  namespace: instavote
+  labels:
+    app: worker
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 1
+  paused: false
+  revisionHistoryLimit: 4
+  selector:
+    matchLabels:
+      role: worker
+      version: latest
+  template:
+    metadata:
+      name: workerpod
+      labels:
+        app: java
+        version: latest
+        role: worker
+    spec:
+      containers:
+        - name: worker
+          image: schoolofdevops/worker:latest

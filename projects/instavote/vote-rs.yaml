@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: vote-rs
+  namespace: instavote
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      role: vote
+      app: python
+    matchExpressions:
+      - {key: version, operator: In, values: [v1,v2,v3]}
+  template:
+    metadata:
+      name: vote
+      labels:
+        app: python
+        role: vote
+        version: v1
+    spec:
+      containers:
+        - name: app
+          image: schoolofdevops/vote:v1
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              hostPort: 80

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mogambo-new
+  namespace: test
+  labels:
+    tier: deployment
+spec:
+  replicas: 3
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  paused: false
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: frontend
+    matchExpressions:
+      - {key: version, operator: In, values: [v1,latest,v2]}
+  template:
+    metadata:
+      name: mogambofrontend
+      labels:
+        app: frontend
+        version: v2
+    spec:
+      containers:
+        - name: mogambocontainer
+          image: schoolofdevops/frontend:v2.0
+        
+        

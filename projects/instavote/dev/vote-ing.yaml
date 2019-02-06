@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: vote0ingress
+ annotations:
+  nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+ rules:
+  - host: vote.example.org
+    http:
+     paths:
+      - path: /
+        backend:
+         serviceName: voteservice
+         servicePort: 80
+  - host: results.example.org
+    http:
+     paths:
+      - path: /
+        backend:
+         serviceName: voteservice
+         servicePort: 80
+   - host: example.org
+     http:
+     paths:
+      - path: /vote
+        backend:
+         serviceName: voteservice
+         servicePort: 80
+
+   - host: example.org
+     http:
+     paths:
+      - path: /results
+        backend:
+         serviceName: voteservice
+         servicePort: 80
+ 

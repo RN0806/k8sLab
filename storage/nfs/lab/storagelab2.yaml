@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-data
+  annotations:
+    volume.beta.kubernetes.io/storage-class: gke
+spec:
+  resources:
+    requests:
+      storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  storageClassName: gke

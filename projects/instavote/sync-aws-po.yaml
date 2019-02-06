@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sync-aws
+  labels:
+    version: '2'
+    platform: aws
+spec:
+  containers:
+    - name: sync
+      image: schoolofdevops/sync:v2

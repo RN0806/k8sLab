@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-frontend
+  labels:
+    app: nginx
+    tier: frontend
+  namespace: test
+spec:
+  replicas: 3
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 1
+  paused: false
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template: 
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+        tier: frontend
+    spec:
+      containers: 
+        - name: nginx
+          image: nginx
+          ports: 
+            - containerPort: 80
+          imagePullPolicy: Always

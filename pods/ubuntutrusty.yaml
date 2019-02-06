@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: ubuntutrustypod
+  labels:
+     role: lab
+     tag: ubuntu
+spec:
+  containers: 
+    - name: ubuntutrustycontainer
+      image: ubuntu:trusty
+      env:
+        - name: ARGUMENT
+          value: 'reshma'
+      command: ['/bin/echo']
+      args: ['$(ARGUMENT)']

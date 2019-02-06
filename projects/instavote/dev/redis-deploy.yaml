@@ -22,7 +22,15 @@ spec:
       - image: schoolofdevops/redis:latest
         imagePullPolicy: Always
         name: redis
+        volumeMounts:
+          - name: myredisconf
+            mountPath: /etc/redis.conf
+            subPath: redis.conf
         ports:
         - containerPort: 6379
           protocol: TCP
       restartPolicy: Always
+      volumes:
+        - name: myredisconf
+          configMap:
+            name: myredisconf

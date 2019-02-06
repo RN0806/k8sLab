@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: resultdeployment
+  namespace: instavote
+spec:
+  replicas: 2
+  minReadySeconds: 10
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 1
+  paused: false
+  revisionHistoryLimit: 4
+  selector:
+    matchLabels:
+      role: result
+      version: latest
+  template:
+    metadata:
+      name: resultpod
+      labels:
+        role: result
+        version: latest
+    spec:
+      containers:
+        - name: result
+          image: schoolofdevops/vote-result
+          ports:
+            - containerPort: 80
+              protocol: TCP

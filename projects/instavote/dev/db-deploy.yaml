@@ -19,9 +19,27 @@ spec:
         version: "9.4"
     spec:
       containers:
-      - image: postgres:9.4
-        imagePullPolicy: Always
-        name: db
-        ports:
-        - containerPort: 5432
-          protocol: TCP
+        - image: postgres:9.4
+          imagePullPolicy: Always
+          name: db
+          ports:
+          - containerPort: 5432
+            protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              valueFrom: 
+                secretKeyRef:
+                  name: dbsecret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dbsecret
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - name: dbpv
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: dbpv
+          persistentVolumeClaim:
+            claimName: db-pvc

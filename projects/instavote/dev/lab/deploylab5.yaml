@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    tier: back
+    role: db
+    app: mysql
+  name: mysql
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  paused: false
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - image: robotshop/rs-mysql-db:latest
+          name: robotshopsql
+          ports:
+            - containerPort: 3306
+      restartPolicy: Always

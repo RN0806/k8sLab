@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: syncrs
+spec:
+  replicas: 4
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      version: '2'
+    matchExpressions:
+      - {key: platform, operator: In, values: [aws,gcp]}
+  template:
+    metadata:
+      name: sync-rs
+      labels:
+        version: '2'
+        platform: aws
+    spec:
+      containers:
+        - name: sync
+          image: schoolofdevops/sync:v2
+    

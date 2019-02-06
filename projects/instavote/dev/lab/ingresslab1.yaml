@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontendingress
+  namespace: test
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "ingresslab3"
+spec:
+   rules:
+    - host: mogambo.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontendsvc
+              servicePort: 80  

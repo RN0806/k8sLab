@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mogambo
+  namespace: test
+  labels:
+    tier: deployment
+spec:
+  replicas: 3
+  strategy: 
+    type: Recreate
+  paused: false
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      name: mogambofrontent
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: mogambocontainer
+          image: schoolofdevops/frontend:latest
+        
+        

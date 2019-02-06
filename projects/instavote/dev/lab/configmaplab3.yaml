@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: configmaplab3secret
+  namespace: test
+data:
+  USERNAME: bW9uZ29hZG1pbgo=
+  PASSWORD: Q3Iwd25KM3czIQo=
+  SECRET_KEY: QXNNUGdjM3hUcm9QY3Y2dmkkTk8K

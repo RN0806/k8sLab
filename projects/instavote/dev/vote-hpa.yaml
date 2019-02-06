@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: votehpa
+spec: 
+  minReplicas: 4
+  maxReplicas: 12
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 40
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: votedeployment
